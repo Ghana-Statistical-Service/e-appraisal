@@ -1,5 +1,5 @@
-import { CompetencyAssessment } from "./competency/page";
+import CompetencyAssessmentView from "./competency/CompetencyAssessmentView";
 
 export default function Page() {
-  return <CompetencyAssessment />;
+  return <CompetencyAssessmentView />;
 }

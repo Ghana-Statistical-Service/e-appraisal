@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { ChevronDown, LogOut, User } from "lucide-react";
 import { Button } from "./ui/button";
 import {
@@ -16,6 +16,11 @@ interface HeaderProps {
 }
 
 export function Header({ userName, userRole }: HeaderProps) {
+  const router = useRouter();
+  const handleLogout = () => {
+    router.push("/");
+  };
+
   return (
     <header className="h-16 bg-[#1a1d29] border-b border-[#2a2d3a] text-white flex items-center justify-between px-6 shadow-lg fixed top-0 left-0 right-0 z-50">
       <div className="flex items-center gap-4">
@@ -49,7 +54,10 @@ export function Header({ userName, userRole }: HeaderProps) {
             <User className="mr-2 h-4 w-4" />
             Profile
           </DropdownMenuItem>
-          <DropdownMenuItem className="text-red-400 hover:bg-[#252834] hover:text-red-300 focus:bg-[#252834] focus:text-red-300">
+          <DropdownMenuItem
+            className="text-red-400 hover:bg-[#252834] hover:text-red-300 focus:bg-[#252834] focus:text-red-300"
+            onClick={handleLogout}
+          >
             <LogOut className="mr-2 h-4 w-4" />
             Logout
           </DropdownMenuItem>

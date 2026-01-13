@@ -1,5 +1,5 @@
-import { MidYearReview } from "./mid-year/page";
+import MidYearReviewView from "./mid-year/MidYearReviewView";
 
 export default function Page() {
-  return <MidYearReview />;
+  return <MidYearReviewView />;
 }
