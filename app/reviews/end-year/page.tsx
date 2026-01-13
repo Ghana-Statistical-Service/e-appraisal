@@ -30,7 +30,7 @@ interface Target {
   comments: string;
 }
 
-export function EndYearReview() {
+function EndYearReview() {
   const [targets, setTargets] = useState<Target[]>([
     { id: "1", target: "Complete quarterly statistical reports", weight: 30, score: 0, comments: "" },
     { id: "2", target: "Implement new data collection methodology", weight: 35, score: 0, comments: "" },

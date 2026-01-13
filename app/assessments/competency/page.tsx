@@ -27,7 +27,7 @@ interface Competency {
   comments: string;
 }
 
-export function CompetencyAssessment() {
+function CompetencyAssessment() {
   const [coreOpen, setCoreOpen] = useState(true);
   const [nonCoreOpen, setNonCoreOpen] = useState(true);
 

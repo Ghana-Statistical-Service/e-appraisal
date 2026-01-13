@@ -33,7 +33,7 @@ interface ApprovalItem {
   status: "pending" | "approved" | "returned";
 }
 
-export function Approvals() {
+function Approvals() {
   const [selectedItem, setSelectedItem] = useState<ApprovalItem | null>(null);
   const [actionType, setActionType] = useState<"approve" | "return" | "clarify" | null>(null);
   const [remarks, setRemarks] = useState("");

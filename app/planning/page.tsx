@@ -16,7 +16,7 @@ interface KRA {
   resources: string;
 }
 
-export function PerformancePlanning() {
+function PerformancePlanning() {
   const [kras, setKras] = useState<KRA[]>([
     { id: "1", area: "", targets: "", resources: "" },
   ]);

@@ -8,7 +8,7 @@ import { Textarea } from "../../components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "../../components/ui/radio-group";
 import { Save, Send } from "lucide-react";
 
-export function AssessmentDecision() {
+function AssessmentDecision() {
   const [decision, setDecision] = useState("");
   const [notes, setNotes] = useState("");
 

@@ -7,7 +7,7 @@ import { Label } from "../../components/ui/label";
 import { Textarea } from "../../components/ui/textarea";
 import { Lock, Save, Send } from "lucide-react";
 
-export function Comments() {
+function Comments() {
   const [appraiseeComments, setAppraiseeComments] = useState("");
   const [hodComments, setHodComments] = useState("");
   const [directorComments, setDirectorComments] = useState("");

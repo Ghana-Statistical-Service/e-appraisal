@@ -87,7 +87,7 @@ interface PhaseControl {
   endDate: string;
 }
 
-export function OrganizationSetup() {
+function OrganizationSetup() {
   const [activeTab, setActiveTab] = useState("cycles");
 
   // Appraisal Cycles

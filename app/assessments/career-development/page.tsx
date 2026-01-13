@@ -22,7 +22,7 @@ interface TrainingNeed {
   timeline: string;
 }
 
-export function CareerDevelopment() {
+function CareerDevelopment() {
   const [developmentPlan, setDevelopmentPlan] = useState("");
   const [trainingNeeds, setTrainingNeeds] = useState<TrainingNeed[]>([
     { id: "1", course: "", priority: "", timeline: "" },

@@ -21,7 +21,7 @@ interface DashboardProps {
   userRole: "staff" | "sectional_head" | "director" | "hr";
 }
 
-export function Dashboard({ userRole }: DashboardProps) {
+function Dashboard({ userRole }: DashboardProps) {
   // Top stats data
   const stats = [
     {

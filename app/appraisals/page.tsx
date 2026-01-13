@@ -30,7 +30,7 @@ interface Appraisal {
   status: "draft" | "submitted" | "returned" | "approved" | "in-review";
 }
 
-export function MyAppraisals() {
+function MyAppraisals() {
   const [filterYear, setFilterYear] = useState<string>("all");
   const [filterStatus, setFilterStatus] = useState<string>("all");
 

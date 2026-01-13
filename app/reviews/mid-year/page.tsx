@@ -8,7 +8,7 @@ import { Label } from "../../components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/ui/tabs";
 import { Lock, Save, Send } from "lucide-react";
 
-export function MidYearReview() {
+function MidYearReview() {
   const [appraiseeSign, setAppraiseeSign] = useState(false);
   const [appraiserSign, setAppraiserSign] = useState(false);
 

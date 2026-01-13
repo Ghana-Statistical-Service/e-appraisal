@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card";
 import { Label } from "../../components/ui/label";
 
-export function OverallAssessment() {
+function OverallAssessment() {
   // Mock scores
   const M = 78.5; // Performance Plan Score
   const N = 4.2; // Core Competencies Average

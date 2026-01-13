@@ -10,7 +10,7 @@ import {
 import { Download, FileText, PieChart, Users } from "lucide-react";
 import { Progress } from "../components/ui/progress";
 
-export function Reports() {
+function Reports() {
   const completionRates = [
     { department: "Data Collection", rate: 85, total: 20, completed: 17 },
     { department: "Statistical Analysis", rate: 92, total: 25, completed: 23 },
