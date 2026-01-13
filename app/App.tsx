@@ -1,14 +1,22 @@
+"use client";
+
 import type { ReactNode } from "react";
+import { usePathname } from "next/navigation";
 
 import { Header } from "./components/header";
 import { Sidebar } from "./components/sidebar";
 
 export default function App({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
   // Mock user data - in a real app, this would come from authentication
   const currentUser = {
     name: "Isaac Odoom",
     role: "hr" as const, // Change to "sectional_head", "director", or "hr" to see different views
   };
+
+  if (pathname === "/") {
+    return <>{children}</>;
+  }
 
   return (
     <div className="min-h-screen bg-[#0f1117]">

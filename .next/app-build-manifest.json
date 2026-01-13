@@ -11,10 +11,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/dashboard/page.js"
     ],
-    "/appraisals/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/appraisals/page.js"
+      "static/chunks/app/page.js"
     ]
   }
 }
