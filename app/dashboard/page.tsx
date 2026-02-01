@@ -162,17 +162,17 @@ function Dashboard({ userRole }: DashboardProps) {
   ];
 
   return (
-    <div className="space-y-6 pb-20 bg-[#0f1117] min-h-screen -m-6 p-6">
+    <div className="space-y-6 pb-20 bg-gray-100 min-h-screen -m-6 p-6">
       {/* Top Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((stat, index) => (
-          <Card key={index} className="hover:shadow-lg hover:shadow-blue-500/10 transition-all cursor-pointer bg-[#1a1d29] border-[#2a2d3a]">
+          <Card key={index} className="hover:shadow-lg hover:shadow-blue-500/10 transition-all cursor-pointer bg-white border-gray-200">
             <CardContent className="p-6">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <p className="text-sm text-gray-400 mb-2">{stat.title}</p>
+                  <p className="text-sm text-gray-500 mb-2">{stat.title}</p>
                   <div className="flex items-baseline gap-2">
-                    <h3 className="text-3xl text-white">{stat.value}</h3>
+                    <h3 className="text-3xl text-gray-800">{stat.value}</h3>
                     {stat.subtitle && (
                       <span className="text-sm text-gray-400">{stat.subtitle}</span>
                     )}
@@ -189,9 +189,9 @@ function Dashboard({ userRole }: DashboardProps) {
       </div>
 
       {/* Appraisal Progress */}
-      <Card className="bg-[#1a1d29] border-[#2a2d3a]">
+      <Card className="bg-white border-gray-200">
         <CardHeader>
-          <CardTitle className="text-white">Appraisal Progress</CardTitle>
+          <CardTitle className="text-gray-800">Appraisal Progress</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Progress Stepper */}
@@ -216,8 +216,8 @@ function Dashboard({ userRole }: DashboardProps) {
                       stage.status === "completed"
                         ? "bg-blue-500 border-blue-500 text-white"
                         : stage.status === "current"
-                        ? "bg-[#1a1d29] border-blue-500 text-blue-500"
-                        : "bg-[#1a1d29] border-gray-700 text-gray-500"
+                        ? "bg-gray-100 border-gray-200 text-blue-500"
+                        : "bg-gray-100 border-gray-200 text-gray-500"
                     }`}
                   >
                     {stage.status === "completed" ? (
@@ -231,7 +231,7 @@ function Dashboard({ userRole }: DashboardProps) {
                   
                   {/* Label */}
                   <div className="mt-3 text-center">
-                    <p className="text-sm font-medium text-gray-300">{stage.name}</p>
+                    <p className="text-sm font-medium text-gray-500">{stage.name}</p>
                     {stage.subtitle && (
                       <p className="text-xs text-gray-500">{stage.subtitle}</p>
                     )}
@@ -246,7 +246,7 @@ function Dashboard({ userRole }: DashboardProps) {
             <div className="flex items-center gap-3">
               <AlertCircle className="h-5 w-5 text-blue-400" />
               <div>
-                <p className="font-medium text-white">Pending Action</p>
+                <p className="font-medium text-gray-500">Pending Action</p>
                 <p className="text-sm text-gray-400">
                   48 Completed Self Assessments waiting for manager review.
                 </p>
@@ -262,9 +262,9 @@ function Dashboard({ userRole }: DashboardProps) {
       {/* Three Column Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Pending Appraisals */}
-        <Card className="lg:col-span-1 bg-[#1a1d29] border-[#2a2d3a]">
+        <Card className="lg:col-span-1 bg-white border-gray-200">
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle className="text-white">Pending Appraisals</CardTitle>
+            <CardTitle className="text-gray-800">Pending Appraisals</CardTitle>
             <Button variant="link" className="text-blue-400 p-0 hover:text-blue-300">
               View All <ArrowRight className="h-4 w-4 ml-1" />
             </Button>
@@ -282,9 +282,9 @@ function Dashboard({ userRole }: DashboardProps) {
               {/* Table Rows */}
               {pendingAppraisals.map((appraisal, index) => (
                 <div key={index} className="grid grid-cols-4 gap-2 text-sm items-center">
-                  <div className="font-medium truncate text-gray-300">{appraisal.employee}</div>
-                  <div className="text-gray-400 truncate">{appraisal.position}</div>
-                  <div className="text-gray-400 truncate">{appraisal.department}</div>
+                  <div className="font-medium truncate text-gray-400">{appraisal.employee}</div>
+                  <div className="text-gray-300 truncate">{appraisal.position}</div>
+                  <div className="text-gray-300 truncate">{appraisal.department}</div>
                   <div>
                     <StatusBadge status={appraisal.status} />
                   </div>
@@ -299,9 +299,9 @@ function Dashboard({ userRole }: DashboardProps) {
         </Card>
 
         {/* Employment Overview */}
-        <Card className="lg:col-span-1 bg-[#1a1d29] border-[#2a2d3a]">
+        <Card className="lg:col-span-1 bg-white border-gray-200">
           <CardHeader>
-            <CardTitle className="text-white">Employment Overview</CardTitle>
+            <CardTitle className="text-gray-800">Employment Overview</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-6">
@@ -326,8 +326,8 @@ function Dashboard({ userRole }: DashboardProps) {
                 </ResponsiveContainer>
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                   <div className="text-center">
-                    <p className="text-sm text-gray-400">Full-Time</p>
-                    <p className="text-2xl font-semibold text-white">70%</p>
+                    <p className="text-sm text-gray-500">Full-Time</p>
+                    <p className="text-2xl font-semibold text-gray-800">70%</p>
                   </div>
                 </div>
               </div>
@@ -335,12 +335,12 @@ function Dashboard({ userRole }: DashboardProps) {
               {/* Employment Stats */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-gray-300">Full-Time</span>
-                  <span className="text-sm text-gray-400">70%</span>
+                  <span className="text-sm font-medium text-gray-500">Full-Time</span>
+                  <span className="text-sm text-gray-500">70%</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-gray-300">Part-Time</span>
-                  <span className="text-sm text-gray-400">30%</span>
+                  <span className="text-sm font-medium text-gray-500">Part-Time</span>
+                  <span className="text-sm text-gray-500">30%</span>
                 </div>
               </div>
 
@@ -350,9 +350,9 @@ function Dashboard({ userRole }: DashboardProps) {
                   <div key={index} className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <div className={`w-3 h-3 rounded-full ${stat.color}`} />
-                      <span className="text-sm text-gray-300">{stat.label}</span>
+                      <span className="text-sm text-gray-400">{stat.label}</span>
                     </div>
-                    <span className="text-sm font-medium text-gray-300">{stat.percentage}</span>
+                    <span className="text-sm font-medium text-gray-400">{stat.percentage}</span>
                   </div>
                 ))}
               </div>
@@ -361,9 +361,9 @@ function Dashboard({ userRole }: DashboardProps) {
         </Card>
 
         {/* Recent Comments */}
-        <Card className="lg:col-span-1 bg-[#1a1d29] border-[#2a2d3a]">
+        <Card className="lg:col-span-1 bg-white border-gray-200">
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle className="text-white">Recent Comments</CardTitle>
+            <CardTitle className="text-gray-800">Recent Comments</CardTitle>
             <Button variant="link" className="text-blue-400 p-0 hover:text-blue-300">
               View All <ArrowRight className="h-4 w-4 ml-1" />
             </Button>
@@ -377,8 +377,8 @@ function Dashboard({ userRole }: DashboardProps) {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2 mb-1">
-                      <p className="font-medium text-sm text-gray-300">{comment.name}</p>
-                      <span className="text-xs text-gray-500 whitespace-nowrap">
+                      <p className="font-medium text-sm text-gray-500">{comment.name}</p>
+                      <span className="text-xs text-gray-400 whitespace-nowrap">
                         {comment.time}
                       </span>
                     </div>
@@ -398,13 +398,13 @@ function Dashboard({ userRole }: DashboardProps) {
         {quickActions.map((action, index) => (
           <Card
             key={index}
-            className="hover:shadow-lg hover:shadow-blue-500/10 transition-all cursor-pointer bg-[#1a1d29] border-[#2a2d3a]"
+            className="hover:shadow-lg hover:shadow-blue-500/10 transition-all cursor-pointer bg-white border-gray-200"
           >
             <CardContent className="p-6 flex flex-col items-center text-center">
               <div className={`p-4 rounded-lg ${action.iconBg} mb-4`}>
                 <action.icon className={`h-8 w-8 ${action.iconColor}`} />
               </div>
-              <p className="font-medium text-gray-300">{action.title}</p>
+              <p className="font-medium text-gray-800">{action.title}</p>
             </CardContent>
           </Card>
         ))}

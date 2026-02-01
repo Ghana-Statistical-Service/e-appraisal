@@ -293,29 +293,29 @@ function OrganizationSetup() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-white">Organization Setup</h1>
-        <p className="text-gray-400">Configure organizational structure, appraisal cycles, grades, and positions</p>
+        <h1 className="text-gray-800">Organization Setup</h1>
+        <p className="text-gray-500">Configure organizational structure, appraisal cycles, grades, and positions</p>
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="bg-[#1a1d29] border border-[#2a2d3a]">
-          <TabsTrigger value="cycles" className="data-[state=active]:bg-blue-600">
+        <TabsList className="bg-white border-gray-200">
+          <TabsTrigger value="cycles" className="data-[state=active]:bg-blue-600 text-white data-[state=inactive]:text-gray-500">
             <Calendar className="h-4 w-4 mr-2" />
             Appraisal Cycles
           </TabsTrigger>
-          <TabsTrigger value="directorates" className="data-[state=active]:bg-blue-600">
+          <TabsTrigger value="directorates" className="data-[state=active]:bg-blue-600 text-white data-[state=inactive]:text-gray-500">
             <Building2 className="h-4 w-4 mr-2" />
             Directorates
           </TabsTrigger>
-          <TabsTrigger value="sections" className="data-[state=active]:bg-blue-600">
+          <TabsTrigger value="sections" className="data-[state=active]:bg-blue-600 text-white data-[state=inactive]:text-gray-500">
             <Users className="h-4 w-4 mr-2" />
             Sections
           </TabsTrigger>
-          <TabsTrigger value="grades" className="data-[state=active]:bg-blue-600">
+          <TabsTrigger value="grades" className="data-[state=active]:bg-blue-600 text-white data-[state=inactive]:text-gray-500">
             <Award className="h-4 w-4 mr-2" />
             Grades
           </TabsTrigger>
-          <TabsTrigger value="positions" className="data-[state=active]:bg-blue-600">
+          <TabsTrigger value="positions" className="data-[state=active]:bg-blue-600 text-white data-[state=inactive]:text-gray-500">
             <Briefcase className="h-4 w-4 mr-2" />
             Positions
           </TabsTrigger>
@@ -324,28 +324,28 @@ function OrganizationSetup() {
         {/* Appraisal Cycles Tab */}
         <TabsContent value="cycles" className="space-y-6">
           {/* Appraisal Cycles Card */}
-          <Card className="bg-[#1a1d29] border-[#2a2d3a]">
+          <Card className="bg-white border-gray-200">
             <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-white">Appraisal Cycles</CardTitle>
+              <CardTitle className="text-gray-800">Appraisal Cycles</CardTitle>
               <AppraisalCycleDialog mode="add" />
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
                   <TableRow className="border-[#2a2d3a] hover:bg-[#252834]">
-                    <TableHead className="text-gray-400">Year</TableHead>
-                    <TableHead className="text-gray-400">Start Date</TableHead>
-                    <TableHead className="text-gray-400">End Date</TableHead>
-                    <TableHead className="text-gray-400">Status</TableHead>
-                    <TableHead className="text-gray-400">Actions</TableHead>
+                    <TableHead className="text-gray-500">Year</TableHead>
+                    <TableHead className="text-gray-500">Start Date</TableHead>
+                    <TableHead className="text-gray-500">End Date</TableHead>
+                    <TableHead className="text-gray-500">Status</TableHead>
+                    <TableHead className="text-gray-500">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {appraisalCycles.map((cycle) => (
-                    <TableRow key={cycle.id} className="border-[#2a2d3a] hover:bg-[#252834]">
-                      <TableCell className="text-white font-medium">{cycle.year}</TableCell>
-                      <TableCell className="text-gray-300">{new Date(cycle.startDate).toLocaleDateString()}</TableCell>
-                      <TableCell className="text-gray-300">{new Date(cycle.endDate).toLocaleDateString()}</TableCell>
+                    <TableRow key={cycle.id} className="border-gray-200 hover:bg-gray-50">
+                      <TableCell className="text-gray-800 font-medium">{cycle.year}</TableCell>
+                      <TableCell className="text-gray-800">{new Date(cycle.startDate).toLocaleDateString()}</TableCell>
+                      <TableCell className="text-gray-800">{new Date(cycle.endDate).toLocaleDateString()}</TableCell>
                       <TableCell>
                         <StatusBadge 
                           status={cycle.status === "active" ? "approved" : cycle.status === "completed" ? "completed" : "pending"} 
@@ -378,10 +378,10 @@ function OrganizationSetup() {
           </Card>
 
           {/* Phase Control Card */}
-          <Card className="bg-[#1a1d29] border-[#2a2d3a]">
+          <Card className="bg-white border-gray-200">
             <CardHeader>
-              <CardTitle className="text-white">Phase Controls - 2026 Cycle</CardTitle>
-              <p className="text-sm text-gray-400 mt-1">
+              <CardTitle className="text-gray-800">Phase Controls - 2026 Cycle</CardTitle>
+              <p className="text-sm text-gray-500 mt-1">
                 Open or close phases to control user access for the current appraisal cycle
               </p>
             </CardHeader>
@@ -390,7 +390,7 @@ function OrganizationSetup() {
                 {phaseControls.map((phase) => (
                   <div
                     key={phase.id}
-                    className="flex items-center justify-between p-4 bg-[#252834] border border-[#2a2d3a] rounded-lg"
+                    className="flex items-center justify-between p-4 bg-gray-50 border border-gray-200 rounded-lg"
                   >
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
@@ -399,22 +399,22 @@ function OrganizationSetup() {
                         ) : (
                           <Lock className="h-5 w-5 text-red-500" />
                         )}
-                        <h3 className="text-white font-medium">{phase.name}</h3>
+                        <h3 className="text-gray-800 font-medium">{phase.name}</h3>
                         <span
                           className={`px-2 py-1 rounded text-xs font-medium ${
                             phase.isOpen
-                              ? "bg-green-500/20 text-green-400"
-                              : "bg-red-500/20 text-red-400"
+                              ? "bg-green-300/20 text-green-600"
+                              : "bg-red-300/20 text-red-600"
                           }`}
                         >
                           {phase.isOpen ? "Open" : "Closed"}
                         </span>
                       </div>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-sm text-gray-500">
                         Period: {new Date(phase.startDate).toLocaleDateString()} -{" "}
                         {new Date(phase.endDate).toLocaleDateString()}
                       </p>
-                      <p className="text-xs text-gray-500 mt-1">
+                      <p className="text-xs text-gray-400 mt-1">
                         {phase.isOpen
                           ? "Users can access and make changes to this phase"
                           : "This phase is locked - users cannot make changes"}
@@ -449,29 +449,29 @@ function OrganizationSetup() {
 
         {/* Directorates Tab */}
         <TabsContent value="directorates">
-          <Card className="bg-[#1a1d29] border-[#2a2d3a]">
+          <Card className="bg-white border-gray-200">
             <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-white">Directorates</CardTitle>
+              <CardTitle className="text-gray-800">Directorates</CardTitle>
               <DirectorateDialog mode="add" />
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
                   <TableRow className="border-[#2a2d3a] hover:bg-[#252834]">
-                    <TableHead className="text-gray-400">Code</TableHead>
-                    <TableHead className="text-gray-400">Directorate Name</TableHead>
-                    <TableHead className="text-gray-400">Director</TableHead>
-                    <TableHead className="text-gray-400">Employees</TableHead>
-                    <TableHead className="text-gray-400">Actions</TableHead>
+                    <TableHead className="text-gray-500">Code</TableHead>
+                    <TableHead className="text-gray-500">Directorate Name</TableHead>
+                    <TableHead className="text-gray-500">Director</TableHead>
+                    <TableHead className="text-gray-500">Employees</TableHead>
+                    <TableHead className="text-gray-500">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {directorates.map((directorate) => (
-                    <TableRow key={directorate.id} className="border-[#2a2d3a] hover:bg-[#252834]">
-                      <TableCell className="text-gray-300">{directorate.code}</TableCell>
-                      <TableCell className="text-white font-medium">{directorate.name}</TableCell>
-                      <TableCell className="text-gray-300">{directorate.director}</TableCell>
-                      <TableCell className="text-gray-300">{directorate.employeeCount}</TableCell>
+                    <TableRow key={directorate.id} className="border-gray-200 hover:bg-gray-50">
+                      <TableCell className="text-gray-400">{directorate.code}</TableCell>
+                      <TableCell className="text-gray-500 font-medium">{directorate.name}</TableCell>
+                      <TableCell className="text-gray-400">{directorate.director}</TableCell>
+                      <TableCell className="text-gray-400">{directorate.employeeCount}</TableCell>
                       <TableCell>
                         <div className="flex gap-2">
                           <Button
@@ -500,31 +500,31 @@ function OrganizationSetup() {
 
         {/* Sections Tab */}
         <TabsContent value="sections">
-          <Card className="bg-[#1a1d29] border-[#2a2d3a]">
+          <Card className="bg-white border-gray-200">
             <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-white">Sections</CardTitle>
+              <CardTitle className="text-gray-800">Sections</CardTitle>
               <SectionDialog mode="add" directorates={directorates} />
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
                   <TableRow className="border-[#2a2d3a] hover:bg-[#252834]">
-                    <TableHead className="text-gray-400">Code</TableHead>
-                    <TableHead className="text-gray-400">Section Name</TableHead>
-                    <TableHead className="text-gray-400">Directorate</TableHead>
-                    <TableHead className="text-gray-400">Section Head</TableHead>
-                    <TableHead className="text-gray-400">Employees</TableHead>
-                    <TableHead className="text-gray-400">Actions</TableHead>
+                    <TableHead className="text-gray-500">Code</TableHead>
+                    <TableHead className="text-gray-500">Section Name</TableHead>
+                    <TableHead className="text-gray-500">Directorate</TableHead>
+                    <TableHead className="text-gray-500">Section Head</TableHead>
+                    <TableHead className="text-gray-500">Employees</TableHead>
+                    <TableHead className="text-gray-500">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {sections.map((section) => (
-                    <TableRow key={section.id} className="border-[#2a2d3a] hover:bg-[#252834]">
-                      <TableCell className="text-gray-300">{section.code}</TableCell>
-                      <TableCell className="text-white font-medium">{section.name}</TableCell>
-                      <TableCell className="text-gray-300">{section.directorateName}</TableCell>
-                      <TableCell className="text-gray-300">{section.head}</TableCell>
-                      <TableCell className="text-gray-300">{section.employeeCount}</TableCell>
+                    <TableRow key={section.id} className="border-gray-200 hover:bg-gray-50">
+                      <TableCell className="text-gray-400">{section.code}</TableCell>
+                      <TableCell className="text-gray-500 font-medium">{section.name}</TableCell>
+                      <TableCell className="text-gray-400">{section.directorateName}</TableCell>
+                      <TableCell className="text-gray-400">{section.head}</TableCell>
+                      <TableCell className="text-gray-400">{section.employeeCount}</TableCell>
                       <TableCell>
                         <div className="flex gap-2">
                           <Button
@@ -553,7 +553,7 @@ function OrganizationSetup() {
 
         {/* Grades Tab */}
         <TabsContent value="grades">
-          <Card className="bg-[#1a1d29] border-[#2a2d3a]">
+          <Card className="bg-white border-gray-200">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="text-white">Grades</CardTitle>
               <GradeDialog mode="add" />
@@ -562,22 +562,22 @@ function OrganizationSetup() {
               <Table>
                 <TableHeader>
                   <TableRow className="border-[#2a2d3a] hover:bg-[#252834]">
-                    <TableHead className="text-gray-400">Code</TableHead>
-                    <TableHead className="text-gray-400">Grade Name</TableHead>
-                    <TableHead className="text-gray-400">Level</TableHead>
-                    <TableHead className="text-gray-400">Min Salary</TableHead>
-                    <TableHead className="text-gray-400">Max Salary</TableHead>
-                    <TableHead className="text-gray-400">Actions</TableHead>
+                    <TableHead className="text-gray-500">Code</TableHead>
+                    <TableHead className="text-gray-500">Grade Name</TableHead>
+                    <TableHead className="text-gray-500">Level</TableHead>
+                    <TableHead className="text-gray-500">Min Salary</TableHead>
+                    <TableHead className="text-gray-500">Max Salary</TableHead>
+                    <TableHead className="text-gray-500">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {grades.map((grade) => (
-                    <TableRow key={grade.id} className="border-[#2a2d3a] hover:bg-[#252834]">
-                      <TableCell className="text-gray-300">{grade.code}</TableCell>
-                      <TableCell className="text-white font-medium">{grade.name}</TableCell>
-                      <TableCell className="text-gray-300">Level {grade.level}</TableCell>
-                      <TableCell className="text-gray-300">{grade.minSalary}</TableCell>
-                      <TableCell className="text-gray-300">{grade.maxSalary}</TableCell>
+                    <TableRow key={grade.id} className="border-gray-200 hover:bg-gray-50">
+                      <TableCell className="text-gray-400">{grade.code}</TableCell>
+                      <TableCell className="text-gray-500 font-medium">{grade.name}</TableCell>
+                      <TableCell className="text-gray-400">Level {grade.level}</TableCell>
+                      <TableCell className="text-gray-400">{grade.minSalary}</TableCell>
+                      <TableCell className="text-gray-400">{grade.maxSalary}</TableCell>
                       <TableCell>
                         <div className="flex gap-2">
                           <Button
@@ -606,7 +606,7 @@ function OrganizationSetup() {
 
         {/* Positions Tab */}
         <TabsContent value="positions">
-          <Card className="bg-[#1a1d29] border-[#2a2d3a]">
+          <Card className="bg-white border-gray-200">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="text-white">Positions</CardTitle>
               <PositionDialog mode="add" grades={grades} />
@@ -615,22 +615,22 @@ function OrganizationSetup() {
               <Table>
                 <TableHeader>
                   <TableRow className="border-[#2a2d3a] hover:bg-[#252834]">
-                    <TableHead className="text-gray-400">Code</TableHead>
-                    <TableHead className="text-gray-400">Position Title</TableHead>
-                    <TableHead className="text-gray-400">Grade</TableHead>
-                    <TableHead className="text-gray-400">Department</TableHead>
-                    <TableHead className="text-gray-400">Description</TableHead>
-                    <TableHead className="text-gray-400">Actions</TableHead>
+                    <TableHead className="text-gray-500">Code</TableHead>
+                    <TableHead className="text-gray-500">Position Title</TableHead>
+                    <TableHead className="text-gray-500">Grade</TableHead>
+                    <TableHead className="text-gray-500">Department</TableHead>
+                    <TableHead className="text-gray-500">Description</TableHead>
+                    <TableHead className="text-gray-500">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {positions.map((position) => (
-                    <TableRow key={position.id} className="border-[#2a2d3a] hover:bg-[#252834]">
-                      <TableCell className="text-gray-300">{position.code}</TableCell>
-                      <TableCell className="text-white font-medium">{position.title}</TableCell>
-                      <TableCell className="text-gray-300">{position.gradeName}</TableCell>
-                      <TableCell className="text-gray-300">{position.department}</TableCell>
-                      <TableCell className="text-gray-300">{position.description}</TableCell>
+                    <TableRow key={position.id} className="border-gray-200 hover:bg-gray-50">
+                      <TableCell className="text-gray-400">{position.code}</TableCell>
+                      <TableCell className="text-gray-500 font-medium">{position.title}</TableCell>
+                      <TableCell className="text-gray-400">{position.gradeName}</TableCell>
+                      <TableCell className="text-gray-400">{position.department}</TableCell>
+                      <TableCell className="text-gray-400">{position.description}</TableCell>
                       <TableCell>
                         <div className="flex gap-2">
                           <Button
@@ -715,7 +715,7 @@ function AppraisalCycleDialog({ mode }: { mode: "add" | "edit" }) {
           </div>
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)} className="border-[#2a2d3a] text-gray-300 hover:bg-[#252834]">
+          <Button variant="outline" onClick={() => setOpen(false)} className="border-[#2a2d3a] text-gray-400 hover:bg-[#252834]">
             Cancel
           </Button>
           <Button className="bg-blue-600 hover:bg-blue-700" onClick={() => setOpen(false)}>
@@ -773,7 +773,7 @@ function DirectorateDialog({ mode }: { mode: "add" | "edit" }) {
           </div>
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)} className="border-[#2a2d3a] text-gray-300 hover:bg-[#252834]">
+          <Button variant="outline" onClick={() => setOpen(false)} className="border-[#2a2d3a] text-gray-400 hover:bg-[#252834]">
             Cancel
           </Button>
           <Button className="bg-blue-600 hover:bg-blue-700" onClick={() => setOpen(false)}>
@@ -846,7 +846,7 @@ function SectionDialog({ mode, directorates }: { mode: "add" | "edit"; directora
           </div>
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)} className="border-[#2a2d3a] text-gray-300 hover:bg-[#252834]">
+          <Button variant="outline" onClick={() => setOpen(false)} className="border-[#2a2d3a] text-gray-400 hover:bg-[#252834]">
             Cancel
           </Button>
           <Button className="bg-blue-600 hover:bg-blue-700" onClick={() => setOpen(false)}>
@@ -923,7 +923,7 @@ function GradeDialog({ mode }: { mode: "add" | "edit" }) {
           </div>
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)} className="border-[#2a2d3a] text-gray-300 hover:bg-[#252834]">
+          <Button variant="outline" onClick={() => setOpen(false)} className="border-[#2a2d3a] text-gray-400 hover:bg-[#252834]">
             Cancel
           </Button>
           <Button className="bg-blue-600 hover:bg-blue-700" onClick={() => setOpen(false)}>
@@ -1004,7 +1004,7 @@ function PositionDialog({ mode, grades }: { mode: "add" | "edit"; grades: Grade[
           </div>
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)} className="border-[#2a2d3a] text-gray-300 hover:bg-[#252834]">
+          <Button variant="outline" onClick={() => setOpen(false)} className="border-[#2a2d3a] text-gray-400 hover:bg-[#252834]">
             Cancel
           </Button>
           <Button className="bg-blue-600 hover:bg-blue-700" onClick={() => setOpen(false)}>

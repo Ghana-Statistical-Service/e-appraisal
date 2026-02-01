@@ -33,7 +33,7 @@ export function Header({ userName, userRole }: HeaderProps) {
             />
           </div>
           <div>
-            <h1 className="text-white font-semibold">Ghana Statistical Service</h1>
+            <h4 className="text-white font-semibold">Ghana Statistical Service</h4>
             <p className="text-blue-400 text-sm">E-Appraisal System</p>
           </div>
         </div>

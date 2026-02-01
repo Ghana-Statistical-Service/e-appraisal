@@ -19,10 +19,10 @@ export default function App({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#0f1117]">
+    <div className="min-h-screen bg-gray-100">
       <Header userName={currentUser.name} userRole={getRoleLabel(currentUser.role)} />
       <Sidebar userRole={currentUser.role} />
-      <main className="ml-64 mt-16 p-8 bg-[#0f1117]">
+      <main className="ml-64 mt-16 p-8 bg-gray-100">
         <div className="max-w-7xl mx-auto">{children}</div>
       </main>
     </div>

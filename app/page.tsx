@@ -30,10 +30,15 @@ export default function Page() {
           <div className="absolute -top-24 -left-24 h-80 w-80 rounded-full bg-[#17B8A6]/20 blur-3xl" />
           <div className="absolute -bottom-24 -right-24 h-80 w-80 rounded-full bg-[#382873]/30 blur-3xl" />
           <div className="relative z-10 max-w-md">
-            <img src="/gsslogo.png" alt="GSS logo" className="h-70 w-70 mb-6" />
-            <h1 className="text-4xl font-semibold leading-tight">
+            <img src="/gsslogo.png" alt="GSS logo" className="h-70 w-70 mb-6 items-center mx-auto" />
+            <h1 className="text-4xl font-semibold leading-tight text-center">
               E-APPRAISAL SYSTEM
             </h1>
+            <div className="p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg mt-16">
+              <p className="text-sm text-blue-400">
+                Staff Performance Planning, Review and Appraisal form.
+              </p>
+            </div>
           </div>
         </div>
 
