@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, use } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
@@ -31,26 +31,12 @@ import {
   TableHeader,
   TableRow,
 } from "../components/ui/table";
-import { Building2, Users, Award, Briefcase, Plus, Pencil, Trash2, Calendar, Lock, Unlock } from "lucide-react";
+import { Building2, Users, Award, Briefcase, Plus, Pencil, Trash2, Calendar, Lock, Unlock, User } from "lucide-react";
 import { StatusBadge } from "../components/status-badge";
+import { AppraisalCycle, useAppraisalCycles } from "../../hooks/useAppraisalCycles";
+import { Directorate, useDirectorates } from "../../hooks/useDirectorates";
+import { Section, useSections } from "../../hooks/useSections";
 
-interface Directorate {
-  id: string;
-  code: string;
-  name: string;
-  director: string;
-  employeeCount: number;
-}
-
-interface Section {
-  id: string;
-  code: string;
-  name: string;
-  directorateId: string;
-  directorateName: string;
-  head: string;
-  employeeCount: number;
-}
 
 interface Grade {
   id: string;
@@ -71,14 +57,6 @@ interface Position {
   description: string;
 }
 
-interface AppraisalCycle {
-  id: string;
-  year: string;
-  startDate: string;
-  endDate: string;
-  status: "active" | "completed" | "upcoming";
-}
-
 interface PhaseControl {
   id: string;
   name: string;
@@ -88,25 +66,11 @@ interface PhaseControl {
 }
 
 function OrganizationSetup() {
-  const [activeTab, setActiveTab] = useState("cycles");
+  const { appraisalCycles, loading: cyclesLoading, error: cyclesError } = useAppraisalCycles();
+  const { directorates, loading: directoratesLoading, error: directoratesError } = useDirectorates();
+  const { sections, loading: sectionsLoading, error: sectionsError } = useSections();
 
-  // Appraisal Cycles
-  const [appraisalCycles, setAppraisalCycles] = useState<AppraisalCycle[]>([
-    {
-      id: "1",
-      year: "2026",
-      startDate: "2026-01-01",
-      endDate: "2026-12-31",
-      status: "active",
-    },
-    {
-      id: "2",
-      year: "2025",
-      startDate: "2025-01-01",
-      endDate: "2025-12-31",
-      status: "completed",
-    },
-  ]);
+  const [activeTab, setActiveTab] = useState("cycles");
 
   // Phase Controls for current cycle
   const [phaseControls, setPhaseControls] = useState<PhaseControl[]>([
@@ -130,71 +94,6 @@ function OrganizationSetup() {
       isOpen: false,
       startDate: "2026-11-01",
       endDate: "2026-12-31",
-    },
-  ]);
-
-  // Mock data for directorates
-  const [directorates, setDirectorates] = useState<Directorate[]>([
-    {
-      id: "1",
-      code: "DIR-001",
-      name: "Digital Services & Technology (DST)",
-      director: "Mark Abuabu-Dadzie",
-      employeeCount: 45,
-    },
-    {
-      id: "2",
-      code: "DIR-002",
-      name: "Human Resources",
-      director: "Isaac Odoom",
-      employeeCount: 18,
-    },
-    {
-      id: "3",
-      code: "DIR-003",
-      name: "Administration",
-      director: "Kwadwo Asante",
-      employeeCount: 32,
-    },
-  ]);
-
-  // Mock data for sections
-  const [sections, setSections] = useState<Section[]>([
-    {
-      id: "1",
-      code: "SEC-001",
-      name: "Application and Database",
-      directorateId: "1",
-      directorateName: "Digital Services & Technology (DST)",
-      head: "Kwesi Eshun",
-      employeeCount: 15,
-    },
-    {
-      id: "2",
-      code: "SEC-002",
-      name: "Systems Support",
-      directorateId: "1",
-      directorateName: "Digital Services & Technology (DST)",
-      head: "Ahmed Salim Adam",
-      employeeCount: 20,
-    },
-    {
-      id: "3",
-      code: "SEC-003",
-      name: "HR Operations",
-      directorateId: "2",
-      directorateName: "Human Resources",
-      head: "Isaac Odoom",
-      employeeCount: 8,
-    },
-    {
-      id: "4",
-      code: "SEC-004",
-      name: "Administration Services",
-      directorateId: "3",
-      directorateName: "Administration",
-      head: "Afisu Ganiyu",
-      employeeCount: 10,
     },
   ]);
 
@@ -319,6 +218,10 @@ function OrganizationSetup() {
             <Briefcase className="h-4 w-4 mr-2" />
             Positions
           </TabsTrigger>
+          <TabsTrigger value="staff" className="data-[state=active]:bg-blue-600 text-white data-[state=inactive]:text-gray-500">
+            <User className="h-4 w-4 mr-2" />
+            Staff
+          </TabsTrigger>
         </TabsList>
 
         {/* Appraisal Cycles Tab */}
@@ -342,10 +245,10 @@ function OrganizationSetup() {
                 </TableHeader>
                 <TableBody>
                   {appraisalCycles.map((cycle) => (
-                    <TableRow key={cycle.id} className="border-gray-200 hover:bg-gray-50">
-                      <TableCell className="text-gray-800 font-medium">{cycle.year}</TableCell>
-                      <TableCell className="text-gray-800">{new Date(cycle.startDate).toLocaleDateString()}</TableCell>
-                      <TableCell className="text-gray-800">{new Date(cycle.endDate).toLocaleDateString()}</TableCell>
+                    <TableRow key={cycle.cycle_id} className="border-gray-200 hover:bg-gray-50">
+                      <TableCell className="text-gray-800 font-medium">{cycle.cycle_year}</TableCell>
+                      <TableCell className="text-gray-800">{new Date(cycle.start_date).toLocaleDateString()}</TableCell>
+                      <TableCell className="text-gray-800">{new Date(cycle.end_date).toLocaleDateString()}</TableCell>
                       <TableCell>
                         <StatusBadge 
                           status={cycle.status === "active" ? "approved" : cycle.status === "completed" ? "completed" : "pending"} 
@@ -467,7 +370,7 @@ function OrganizationSetup() {
                 </TableHeader>
                 <TableBody>
                   {directorates.map((directorate) => (
-                    <TableRow key={directorate.id} className="border-gray-200 hover:bg-gray-50">
+                    <TableRow key={directorate.directorate_id} className="border-gray-200 hover:bg-gray-50">
                       <TableCell className="text-gray-400">{directorate.code}</TableCell>
                       <TableCell className="text-gray-500 font-medium">{directorate.name}</TableCell>
                       <TableCell className="text-gray-400">{directorate.director}</TableCell>
@@ -519,7 +422,7 @@ function OrganizationSetup() {
                 </TableHeader>
                 <TableBody>
                   {sections.map((section) => (
-                    <TableRow key={section.id} className="border-gray-200 hover:bg-gray-50">
+                    <TableRow key={section.section_id} className="border-gray-200 hover:bg-gray-50">
                       <TableCell className="text-gray-400">{section.code}</TableCell>
                       <TableCell className="text-gray-500 font-medium">{section.name}</TableCell>
                       <TableCell className="text-gray-400">{section.directorateName}</TableCell>
@@ -555,7 +458,7 @@ function OrganizationSetup() {
         <TabsContent value="grades">
           <Card className="bg-white border-gray-200">
             <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-white">Grades</CardTitle>
+              <CardTitle className="text-gray-800">Grades</CardTitle>
               <GradeDialog mode="add" />
             </CardHeader>
             <CardContent>
@@ -608,7 +511,60 @@ function OrganizationSetup() {
         <TabsContent value="positions">
           <Card className="bg-white border-gray-200">
             <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-white">Positions</CardTitle>
+              <CardTitle className="text-gray-800">Positions</CardTitle>
+              <PositionDialog mode="add" grades={grades} />
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow className="border-[#2a2d3a] hover:bg-[#252834]">
+                    <TableHead className="text-gray-500">Code</TableHead>
+                    <TableHead className="text-gray-500">Position Title</TableHead>
+                    <TableHead className="text-gray-500">Grade</TableHead>
+                    <TableHead className="text-gray-500">Department</TableHead>
+                    <TableHead className="text-gray-500">Description</TableHead>
+                    <TableHead className="text-gray-500">Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {positions.map((position) => (
+                    <TableRow key={position.id} className="border-gray-200 hover:bg-gray-50">
+                      <TableCell className="text-gray-400">{position.code}</TableCell>
+                      <TableCell className="text-gray-500 font-medium">{position.title}</TableCell>
+                      <TableCell className="text-gray-400">{position.gradeName}</TableCell>
+                      <TableCell className="text-gray-400">{position.department}</TableCell>
+                      <TableCell className="text-gray-400">{position.description}</TableCell>
+                      <TableCell>
+                        <div className="flex gap-2">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-blue-400 hover:text-blue-300 hover:bg-[#252834]"
+                          >
+                            <Pencil className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-red-400 hover:text-red-300 hover:bg-[#252834]"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Staff Tab */}
+        <TabsContent value="staff">
+          <Card className="bg-white border-gray-200">
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle className="text-gray-800">Staff</CardTitle>
               <PositionDialog mode="add" grades={grades} />
             </CardHeader>
             <CardContent>
@@ -665,6 +621,30 @@ function OrganizationSetup() {
 function AppraisalCycleDialog({ mode }: { mode: "add" | "edit" }) {
   const [open, setOpen] = useState(false);
 
+  const { createAppraisalCycle } = useAppraisalCycles();
+
+  const [cycleData, setCycleData] = useState({
+    cycle_year: "",
+    start_date: "",
+    end_date: "",
+    status: "active",
+  });
+
+  const handleSubmit = async () => {
+    try {
+      await createAppraisalCycle(cycleData);
+      setOpen(false);
+      setCycleData({
+        cycle_year: "",
+        start_date: "",
+        end_date: "",
+        status: "active",
+      });
+    } catch {
+      alert("Failed to create appraisal cycle");
+    }
+  };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -688,6 +668,10 @@ function AppraisalCycleDialog({ mode }: { mode: "add" | "edit" }) {
               type="number"
               placeholder="e.g., 2027"
               className="bg-[#252834] border-[#2a2d3a] text-white"
+              value={cycleData.cycle_year}
+              onChange={(e) =>
+                setCycleData({ ...cycleData, cycle_year: e.target.value })
+              }
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
@@ -697,6 +681,10 @@ function AppraisalCycleDialog({ mode }: { mode: "add" | "edit" }) {
                 id="cycle-start"
                 type="date"
                 className="bg-[#252834] border-[#2a2d3a] text-white"
+                value={cycleData.start_date}
+                onChange={(e) =>
+                  setCycleData({ ...cycleData, start_date: e.target.value })
+                }
               />
             </div>
             <div className="space-y-2">
@@ -705,8 +693,30 @@ function AppraisalCycleDialog({ mode }: { mode: "add" | "edit" }) {
                 id="cycle-end"
                 type="date"
                 className="bg-[#252834] border-[#2a2d3a] text-white"
+                value={cycleData.end_date}
+                onChange={(e) =>
+                  setCycleData({ ...cycleData, end_date: e.target.value })
+                }
               />
             </div>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="cycle-year" className="text-gray-300">Status</Label>
+            <Select 
+              value={cycleData.status}
+              onValueChange={(value) =>
+                setCycleData({ ...cycleData, status: value })
+              }
+            >
+              <SelectTrigger className="bg-[#252834] border-[#2a2d3a] text-white">
+                <SelectValue placeholder="Select status" />
+              </SelectTrigger>
+              <SelectContent className="bg-[#1a1d29] border-[#2a2d3a]">
+                <SelectItem value="active" className="text-white hover:bg-[#2a2d3a]">Active</SelectItem>
+                <SelectItem value="completed" className="text-white hover:bg-[#2a2d3a]">Completed</SelectItem>
+                <SelectItem value="approved" className="text-white hover:bg-[#2a2d3a]">Approved</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
           <div className="p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
             <p className="text-sm text-blue-400">
@@ -718,7 +728,7 @@ function AppraisalCycleDialog({ mode }: { mode: "add" | "edit" }) {
           <Button variant="outline" onClick={() => setOpen(false)} className="border-[#2a2d3a] text-gray-400 hover:bg-[#252834]">
             Cancel
           </Button>
-          <Button className="bg-blue-600 hover:bg-blue-700" onClick={() => setOpen(false)}>
+          <Button className="bg-blue-600 hover:bg-blue-700" onClick={handleSubmit}>
             {mode === "add" ? "Create Cycle" : "Save Changes"}
           </Button>
         </DialogFooter>
@@ -829,7 +839,7 @@ function SectionDialog({ mode, directorates }: { mode: "add" | "edit"; directora
               </SelectTrigger>
               <SelectContent className="bg-[#1a1d29] border-[#2a2d3a]">
                 {directorates.map((dir) => (
-                  <SelectItem key={dir.id} value={dir.id} className="text-white hover:bg-[#252834]">
+                  <SelectItem key={dir.directorate_id} value={dir.directorate_id} className="text-white hover:bg-[#252834]">
                     {dir.name}
                   </SelectItem>
                 ))}

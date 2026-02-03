@@ -5,22 +5,39 @@ import { useRouter } from "next/navigation";
 import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
 import { Label } from "./components/ui/label";
+import { api } from "../lib/apiHelper";
+
 
 export default function Page() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (password === "12345") {
-      setError("");
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await api.post("/auth/login", {
+        email,
+        password,
+      });
+
+      // Store auth data
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+
       router.push("/dashboard");
-      return;
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
-    setError("Invalid credentials. Use password 12345.");
   };
+  
 
   return (
     <div className="min-h-screen bg-[#0b1020] text-white">
@@ -87,8 +104,10 @@ export default function Page() {
               ) : null}
 
               <Button type="submit" className="w-full bg-[#382873] hover:bg-[#2b1f5c]">
-                Login
+                {loading ? "Signing in..." : "Login"}
               </Button>
+
+              
             </form>
 
             <p className="mt-8 text-center text-xs text-slate-500">
