@@ -621,7 +621,7 @@ function OrganizationSetup() {
 function AppraisalCycleDialog({ mode }: { mode: "add" | "edit" }) {
   const [open, setOpen] = useState(false);
 
-  const { createAppraisalCycle } = useAppraisalCycles();
+  const { createAppraisalCycle, loading } = useAppraisalCycles();
 
   const [cycleData, setCycleData] = useState({
     cycle_year: "",
@@ -729,7 +729,7 @@ function AppraisalCycleDialog({ mode }: { mode: "add" | "edit" }) {
             Cancel
           </Button>
           <Button className="bg-blue-600 hover:bg-blue-700" onClick={handleSubmit}>
-            {mode === "add" ? "Create Cycle" : "Save Changes"}
+            {mode === "add" ? "Create Cycle" : "Save Changes"} {loading ? "Saving..." : "Save Changes"}
           </Button>
         </DialogFooter>
       </DialogContent>
