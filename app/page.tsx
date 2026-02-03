@@ -33,7 +33,7 @@ export default function Page() {
       router.push("/dashboard");
     } catch (err: any) {
       console.error("login failed:", err);
-      setError("Wrong email or password");
+      setError("Invalid email or password");
     } finally {
       setLoading(false);
     }
