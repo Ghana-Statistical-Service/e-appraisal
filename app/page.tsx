@@ -27,8 +27,10 @@ export default function Page() {
       });
 
       // Store auth data
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+      sessionStorage.setItem("token", res.data.token);
+      sessionStorage.setItem("user", JSON.stringify(res.data.user));
+
+      document.cookie = "auth=1; path=/";
 
       router.push("/dashboard");
     } catch (err: any) {

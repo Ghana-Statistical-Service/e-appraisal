@@ -729,7 +729,7 @@ function AppraisalCycleDialog({ mode }: { mode: "add" | "edit" }) {
             Cancel
           </Button>
           <Button className="bg-blue-600 hover:bg-blue-700" onClick={handleSubmit}>
-            {mode === "add" ? "Create Cycle" : "Save Changes"} {loading ? "Saving..." : "Save Changes"}
+            {mode === "add" ? "Create Cycle" : "Save Changes"} {loading ? "Saving..." : ""}
           </Button>
         </DialogFooter>
       </DialogContent>

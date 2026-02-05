@@ -1,14 +1,12 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+// const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_BASE_URL = "https://appraisalbackend.onrender.com";
 
 function getToken() {
   if (typeof window === "undefined") return null;
-  return localStorage.getItem("token");
+  return sessionStorage.getItem("token");
 }
 
-async function request(
-  path: string,
-  options: RequestInit = {}
-) {
+async function request(path: string, options: RequestInit = {}) {
   const token = getToken();
 
   const response = await fetch(`${API_BASE_URL}${path}`, {
@@ -20,18 +18,33 @@ async function request(
     },
   });
 
-  const data = await response.json();
+  let data: any = null;
+
+  try {
+    data = await response.json();
+  } catch {
+    // handle empty responses
+  }
+
+  // // 🔐 GLOBAL AUTH HANDLING
+  // if (response.status === 401 || response.status === 403) {
+  //   if (typeof window !== "undefined") {
+  //     sessionStorage.removeItem("token");
+  //     sessionStorage.removeItem("user");
+  //     window.location.href = "/";
+  //   }
+  //   throw new Error("Unauthorized");
+  // }
 
   if (!response.ok) {
-    throw new Error(data.message || "Request failed");
+    throw new Error(data?.message || "Request failed");
   }
 
   return data;
 }
 
 export const api = {
-  get: (path: string) =>
-    request(path),
+  get: (path: string) => request(path),
 
   post: (path: string, body: any) =>
     request(path, {

@@ -18,6 +18,9 @@ interface HeaderProps {
 export function Header({ userName, userRole }: HeaderProps) {
   const router = useRouter();
   const handleLogout = () => {
+    document.cookie = "auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("user");
     router.push("/");
   };
 
