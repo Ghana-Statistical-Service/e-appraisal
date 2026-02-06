@@ -36,6 +36,7 @@ import { StatusBadge } from "../components/status-badge";
 import { AppraisalCycle, useAppraisalCycles } from "../../hooks/useAppraisalCycles";
 import { Directorate, useDirectorates } from "../../hooks/useDirectorates";
 import { Section, useSections } from "../../hooks/useSections";
+import { AppraisalCycleDialog } from "../../hooks/AppraisalCycleDialog";
 
 
 interface Grade {
@@ -256,13 +257,7 @@ function OrganizationSetup() {
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-blue-400 hover:text-blue-300 hover:bg-[#252834]"
-                          >
-                            <Pencil className="h-4 w-4" />
-                          </Button>
+                          <AppraisalCycleDialog mode="edit" cycle={cycle} />
                           <Button
                             variant="ghost"
                             size="sm"
@@ -617,125 +612,7 @@ function OrganizationSetup() {
   );
 }
 
-// Appraisal Cycle Dialog Component
-function AppraisalCycleDialog({ mode }: { mode: "add" | "edit" }) {
-  const [open, setOpen] = useState(false);
-
-  const { createAppraisalCycle, loading } = useAppraisalCycles();
-
-  const [cycleData, setCycleData] = useState({
-    cycle_year: "",
-    start_date: "",
-    end_date: "",
-    status: "active",
-  });
-
-  const handleSubmit = async () => {
-    try {
-      await createAppraisalCycle(cycleData);
-      setOpen(false);
-      setCycleData({
-        cycle_year: "",
-        start_date: "",
-        end_date: "",
-        status: "active",
-      });
-    } catch {
-      alert("Failed to create appraisal cycle");
-    }
-  };
-
-  return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button className="bg-blue-600 hover:bg-blue-700">
-          <Plus className="h-4 w-4 mr-2" />
-          New Appraisal Cycle
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="bg-[#1a1d29] border-[#2a2d3a] text-white">
-        <DialogHeader>
-          <DialogTitle>{mode === "add" ? "Create New Appraisal Cycle" : "Edit Appraisal Cycle"}</DialogTitle>
-          <DialogDescription className="text-gray-400">
-            Set up a new appraisal cycle for the organization
-          </DialogDescription>
-        </DialogHeader>
-        <div className="space-y-4 py-4">
-          <div className="space-y-2">
-            <Label htmlFor="cycle-year" className="text-gray-300">Cycle Year</Label>
-            <Input
-              id="cycle-year"
-              type="number"
-              placeholder="e.g., 2027"
-              className="bg-[#252834] border-[#2a2d3a] text-white"
-              value={cycleData.cycle_year}
-              onChange={(e) =>
-                setCycleData({ ...cycleData, cycle_year: e.target.value })
-              }
-            />
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="cycle-start" className="text-gray-300">Start Date</Label>
-              <Input
-                id="cycle-start"
-                type="date"
-                className="bg-[#252834] border-[#2a2d3a] text-white"
-                value={cycleData.start_date}
-                onChange={(e) =>
-                  setCycleData({ ...cycleData, start_date: e.target.value })
-                }
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="cycle-end" className="text-gray-300">End Date</Label>
-              <Input
-                id="cycle-end"
-                type="date"
-                className="bg-[#252834] border-[#2a2d3a] text-white"
-                value={cycleData.end_date}
-                onChange={(e) =>
-                  setCycleData({ ...cycleData, end_date: e.target.value })
-                }
-              />
-            </div>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="cycle-year" className="text-gray-300">Status</Label>
-            <Select 
-              value={cycleData.status}
-              onValueChange={(value) =>
-                setCycleData({ ...cycleData, status: value })
-              }
-            >
-              <SelectTrigger className="bg-[#252834] border-[#2a2d3a] text-white">
-                <SelectValue placeholder="Select status" />
-              </SelectTrigger>
-              <SelectContent className="bg-[#1a1d29] border-[#2a2d3a]">
-                <SelectItem value="active" className="text-white hover:bg-[#2a2d3a]">Active</SelectItem>
-                <SelectItem value="completed" className="text-white hover:bg-[#2a2d3a]">Completed</SelectItem>
-                <SelectItem value="approved" className="text-white hover:bg-[#2a2d3a]">Approved</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
-            <p className="text-sm text-blue-400">
-              <strong>Note:</strong> Creating a new cycle will set up the default phases (Performance Planning, Mid-Year Review, End-Year Review) which you can configure after creation.
-            </p>
-          </div>
-        </div>
-        <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)} className="border-[#2a2d3a] text-gray-400 hover:bg-[#252834]">
-            Cancel
-          </Button>
-          <Button className="bg-blue-600 hover:bg-blue-700" onClick={handleSubmit}>
-            {mode === "add" ? "Create Cycle" : "Save Changes"} {loading ? "Saving..." : ""}
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  );
-}
+<AppraisalCycleDialog mode="add" />
 
 // Directorate Dialog Component
 function DirectorateDialog({ mode }: { mode: "add" | "edit" }) {
