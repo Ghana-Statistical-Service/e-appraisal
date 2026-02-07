@@ -225,3 +225,9 @@
     line-height: 1.5;
   }
 }
+
+@layer utilities {
+  .sidebar-scroll {
+    -webkit-overflow-scrolling: touch;
+  }
+}

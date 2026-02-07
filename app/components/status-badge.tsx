@@ -1,7 +1,16 @@
 import { cn } from "./ui/utils";
 
 interface StatusBadgeProps {
-  status: "draft" | "submitted" | "returned" | "approved" | "pending" | "in-review" | "completed";
+  status:
+    | "draft"
+    | "submitted"
+    | "returned"
+    | "approved"
+    | "pending"
+    | "in-review"
+    | "completed"
+    | "open"
+    | "closed";
   className?: string;
 }
 
@@ -14,6 +23,8 @@ export function StatusBadge({ status, className }: StatusBadgeProps) {
     pending: { label: "Pending", color: "bg-amber-100 text-amber-700 border-amber-300" },
     "in-review": { label: "In Review", color: "bg-purple-100 text-purple-700 border-purple-300" },
     completed: { label: "Completed", color: "bg-green-100 text-green-700 border-green-300" },
+    open: { label: "Open", color: "bg-green-100 text-green-700 border-green-300" },
+    closed: { label: "Closed", color: "bg-red-100 text-red-700 border-red-300" },
   };
 
   const config = statusConfig[status];

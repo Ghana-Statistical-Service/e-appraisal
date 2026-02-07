@@ -1,80 +1,3 @@
-// import { useEffect, useState } from "react";
-// import { api } from "../lib/apiHelper"; // adjust path if needed
-
-// export interface AppraisalCycle {
-//   cycle_id: string;
-//   cycle_year: string;
-//   start_date: string;
-//   end_date: string;
-//   status: string;
-//   // add other fields as needed
-// }
-
-// export interface CreateAppraisalCyclePayload {
-//   cycle_year: string;
-//   start_date: string;
-//   end_date: string;
-//   status: string;
-// }
-
-// export function useAppraisalCycles() {
-//   const [appraisalCycles, setAppraisalCycles] = useState<AppraisalCycle[]>([]);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState<string | null>(null);
-
-//   const fetchAppraisalCycles = async () => {
-//     setLoading(true);
-//     setError(null);
-
-//     try {
-//       const response = await api.get("/appraisal-cycles");
-//       setAppraisalCycles(response.data);
-//       } catch (err) {
-//         console.error("Failed to fetch appraisal cycles:", err);
-//         setError("Failed to load appraisal cycles");
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//   /* create new cycle (POST) */
-//   const createAppraisalCycle = async (
-//     payload: CreateAppraisalCyclePayload
-//   ) => {
-
-//     setLoading(true);
-//     setError(null);
-
-//     try {
-
-//       const response = await api.post("/appraisal-cycles", payload);
-
-//       // Optimistic update: add new cycle to state
-//       setAppraisalCycles((prev) => [...prev, response.data]);
-//       return response.data;
-//       } catch (err) {
-//         console.error("Failed to create appraisal cycle:", err);
-//         setError("Failed to create appraisal cycle");
-//         throw err;
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//   useEffect(() => {
-//     fetchAppraisalCycles();
-//   }, []);
-
-//   return {
-//     appraisalCycles,
-//     loading,
-//     error,
-//     refetch: fetchAppraisalCycles,
-//     createAppraisalCycle, 
-//   };
-// }
-
-
 import { useEffect, useState } from "react";
 import { api } from "../lib/apiHelper";
 
@@ -96,10 +19,17 @@ export interface CreateAppraisalCyclePayload {
 export interface UpdateAppraisalCyclePayload
   extends CreateAppraisalCyclePayload {}
 
+const isAdmin = () => {
+  if (typeof window === "undefined") return false;
+  const user = JSON.parse(sessionStorage.getItem("user") || "{}");
+  return ["ADMIN"].includes(user.level_code);
+};
+
 export function useAppraisalCycles() {
   const [appraisalCycles, setAppraisalCycles] = useState<AppraisalCycle[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isAdminUser, setIsAdminUser] = useState(false);
 
   /* ==============================
      FETCH ALL CYCLES
@@ -125,6 +55,9 @@ export function useAppraisalCycles() {
   const createAppraisalCycle = async (
     payload: CreateAppraisalCyclePayload
   ) => {
+    if (!isAdmin()) {
+      throw new Error("Unauthorized");
+    }
     setLoading(true);
     setError(null);
 
@@ -151,6 +84,9 @@ export function useAppraisalCycles() {
     cycleId: string,
     payload: UpdateAppraisalCyclePayload
   ) => {
+    if (!isAdmin()) {
+      throw new Error("Unauthorized");
+    }
     setLoading(true);
     setError(null);
 
@@ -181,6 +117,9 @@ export function useAppraisalCycles() {
      DELETE (DELETE)
   ============================== */
   const deleteAppraisalCycle = async (cycleId: string) => {
+    if (!isAdmin()) {
+      throw new Error("Unauthorized");
+    }
     setLoading(true);
     setError(null);
 
@@ -207,11 +146,16 @@ export function useAppraisalCycles() {
     fetchAppraisalCycles();
   }, []);
 
+  useEffect(() => {
+    setIsAdminUser(isAdmin());
+  }, []);
+
   return {
     appraisalCycles,
     loading,
     error,
     refetch: fetchAppraisalCycles,
+    isAdmin: isAdminUser,
     createAppraisalCycle,
     updateAppraisalCycle,
     deleteAppraisalCycle,

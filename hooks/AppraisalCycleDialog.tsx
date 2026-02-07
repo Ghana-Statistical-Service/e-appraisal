@@ -178,9 +178,8 @@ export function AppraisalCycleDialog({
                 <SelectValue placeholder="Select status" />
               </SelectTrigger>
               <SelectContent className="bg-[#1a1d29] border-[#2a2d3a]">
-                <SelectItem value="active" className="text-white hover:bg-[#2a2d3a]">Active</SelectItem>
-                <SelectItem value="completed" className="text-white hover:bg-[#2a2d3a]">Completed</SelectItem>
-                <SelectItem value="approved" className="text-white hover:bg-[#2a2d3a]">Approved</SelectItem>
+                <SelectItem value="active" className="text-white hover:bg-[#2a2d3a]">Open</SelectItem>
+                <SelectItem value="completed" className="text-white hover:bg-[#2a2d3a]">Closed</SelectItem>
               </SelectContent>
             </Select>
           </div>
